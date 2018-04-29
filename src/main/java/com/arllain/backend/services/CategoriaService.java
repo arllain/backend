@@ -13,17 +13,22 @@ import com.arllain.backend.services.exception.ObjectNotFoundException;
 public class CategoriaService {
 	
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private CategoriaRepository repo;
 	
-	public Categoria buscar(Integer id) {
-		Optional<Categoria> cat = categoriaRepository.findById(id);
+	public Categoria find(Integer id) {
+		Optional<Categoria> cat = repo.findById(id);
 		return cat.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
 		id + ", Tipo: " + Categoria.class.getName()));
 	}
 
 	public Categoria insert(Categoria cat) {
 		cat.setId(null);
-		return categoriaRepository.save(cat);
+		return repo.save(cat);
+	}
+
+	public Categoria update(Categoria cat) {
+		find(cat.getId());
+		return repo.save(cat);
 	}
 
 }
