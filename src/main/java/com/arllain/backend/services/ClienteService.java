@@ -13,10 +13,10 @@ import com.arllain.backend.services.exception.ObjectNotFoundException;
 public class ClienteService {
 	
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private ClienteRepository repo;
 	
 	public Cliente buscar(Integer id) {
-		Optional<Cliente> cli = clienteRepository.findById(id);
+		Optional<Cliente> cli = repo.findById(id);
 		return cli.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
 		id + ", Tipo: " + Cliente.class.getName()));
 	}

@@ -1,6 +1,8 @@
 package com.arllain.backend.controllers;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.arllain.backend.controllers.dto.CategoriaDTO;
 import com.arllain.backend.domain.Categoria;
 import com.arllain.backend.services.CategoriaService;
 
@@ -50,5 +53,12 @@ public class CategoriaController {
 		return ResponseEntity.noContent().build();
 	}
 	
+
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> lista = service.findAll();
+		List<CategoriaDTO> listaDTO = lista.stream().map(cat -> new CategoriaDTO(cat)).collect(Collectors.toList());	
+		return ResponseEntity.ok(listaDTO);
+	}
 	
 }
