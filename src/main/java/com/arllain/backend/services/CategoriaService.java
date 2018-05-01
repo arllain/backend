@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.arllain.backend.controllers.dto.CategoriaDTO;
 import com.arllain.backend.domain.Categoria;
 import com.arllain.backend.repositories.CategoriaRepository;
 import com.arllain.backend.services.exception.DataIntegrityException;
@@ -55,4 +56,9 @@ public class CategoriaService {
 		return repo.findAll(pageRequest);
 	}	
 
+	
+	public Categoria fromDTO(CategoriaDTO categoriaDTO) {
+		Categoria cat = new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
+		return cat;
+	}
 }
