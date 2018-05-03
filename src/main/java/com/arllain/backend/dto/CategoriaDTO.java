@@ -1,4 +1,4 @@
-package com.arllain.backend.controllers.dto;
+package com.arllain.backend.dto;
 
 import java.io.Serializable;
 

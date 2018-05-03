@@ -10,8 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.arllain.backend.controllers.dto.CategoriaDTO;
 import com.arllain.backend.domain.Categoria;
+import com.arllain.backend.dto.CategoriaDTO;
 import com.arllain.backend.repositories.CategoriaRepository;
 import com.arllain.backend.services.exception.DataIntegrityException;
 import com.arllain.backend.services.exception.ObjectNotFoundException;
