@@ -58,9 +58,7 @@ public class ClienteService {
 
 	
 	public Cliente fromDTO(ClienteDTO clienteDTO) {
-		Cliente cliente = new Cliente();
-		cliente.setNome(clienteDTO.getNome());
-		cliente.setEmail(clienteDTO.getEmail());
+		Cliente cliente = new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null);
 		return cliente;
 	}	
 }

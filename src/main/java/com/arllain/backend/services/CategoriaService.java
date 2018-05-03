@@ -34,7 +34,8 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria cat) {
-		find(cat.getId());
+		Categoria categoria = find(cat.getId());
+		categoria.setNome(cat.getNome());
 		return repo.save(cat);
 	}
 

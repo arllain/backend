@@ -31,6 +31,18 @@ public abstract class Pagamento implements Serializable{
 	public Pagamento() {
 		
 	}
+	
+	/**
+	 * @param id
+	 * @param estado
+	 * @param pedido
+	 */
+	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
+		super();
+		this.id = id;
+		this.estado = (estado==null) ? null : estado.getCod();
+		this.pedido = pedido;
+	}
 
 	/**
 	 * @return the id
@@ -71,18 +83,6 @@ public abstract class Pagamento implements Serializable{
 	 * @param pedido the pedido to set
 	 */
 	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-
-	/**
-	 * @param id
-	 * @param estado
-	 * @param pedido
-	 */
-	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
-		super();
-		this.id = id;
-		this.estado = estado.getCod();
 		this.pedido = pedido;
 	}
 
