@@ -11,10 +11,10 @@ import com.arllain.backend.domain.ItemPedido;
 import com.arllain.backend.domain.PagamentoComBoleto;
 import com.arllain.backend.domain.Pedido;
 import com.arllain.backend.domain.enums.EstadoPagamento;
+import com.arllain.backend.repositories.ClienteRepository;
 import com.arllain.backend.repositories.ItemPedidoRepository;
 import com.arllain.backend.repositories.PagamentoRepository;
 import com.arllain.backend.repositories.PedidoRepository;
-import com.arllain.backend.repositories.ProdutoRepository;
 import com.arllain.backend.services.exception.ObjectNotFoundException;
 
 @Service
@@ -35,6 +35,9 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
 	public Pedido buscar(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
@@ -45,6 +48,7 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(clienteRepository.findById(obj.getCliente().getId()).get());
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		if(obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -57,12 +61,14 @@ public class PedidoService {
 		
 		for(ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
+			ip.setProduto(produtoService.find(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
 		
 		itemPedidoRepository.saveAll(obj.getItens());
 		
+		System.out.println(obj);
 		return obj;
 	}
 

@@ -12,11 +12,15 @@ import javax.persistence.OneToOne;
 
 import com.arllain.backend.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @JsonTypeInfo(use= JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+//@JsonTypeInfo(use= JsonTypeInfo.Id.NAME, include = As.WRAPPER_OBJECT, property = "@type")
+//@JsonSubTypes.Type(name = "pagamentoComCartao", value = PagamentoComCartao.class)
 public abstract class Pagamento implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
