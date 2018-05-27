@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.arllain.backend.domain.Categoria;
@@ -19,6 +20,7 @@ import com.arllain.backend.domain.PagamentoComCartao;
 import com.arllain.backend.domain.Pedido;
 import com.arllain.backend.domain.Produto;
 import com.arllain.backend.domain.enums.EstadoPagamento;
+import com.arllain.backend.domain.enums.Perfil;
 import com.arllain.backend.domain.enums.TipoCliente;
 import com.arllain.backend.repositories.CategoriaRepository;
 import com.arllain.backend.repositories.CidadeRepository;
@@ -60,6 +62,8 @@ public class DBService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 		
+	@Autowired
+	private BCryptPasswordEncoder be;
 
 	public void instantiateTestDataBase() throws ParseException {
 
@@ -131,17 +135,24 @@ public class DBService {
 		estadoRepository.saveAll(Arrays.asList(estado1, estado2));
 		cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
 
-		Cliente cli1 = new Cliente(null, "Maria Silva", "argus182020@gmail.com", "36378912377", TipoCliente.PESSOA_FISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", "argus182020@gmail.com", "25156551653", TipoCliente.PESSOA_FISICA, be.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838396"));
 
+		Cliente cli2 = new Cliente(null, "Arllain Candido", "agcs1276@gmail.com", "25156551653", TipoCliente.PESSOA_FISICA, be.encode("123"));
+		cli2.getTelefones().addAll(Arrays.asList("27363323", "93838396"));
+		cli2.addPerfil(Perfil.ADMIN);
+		
 		Endereco end1 = new Endereco(null, "Rua da flores", "300", "Apt 303", "Torre", "999874558", cli1, cid1);
-		Endereco end2 = new Endereco(null, "Avenida Domingos Ferreira", "1005", "sala 1303", "Boa vaigem", "38220834",
+		Endereco end2 = new Endereco(null, "Avenida Domingos Ferreira", "1005", "sala 1303", "Boa viagem", "38220834",
+				cli1, cid1);
+		Endereco end3 = new Endereco(null, "Avenida dos Programadores", "2020", "sala 1303", "Boa viagem", "38220834",
 				cli1, cid1);
 
 		cli1.getEnderecos().addAll(Arrays.asList(end1, end2));
+		cli2.getEnderecos().addAll(Arrays.asList(end3));
 
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(end1, end2));
+		clienteRepository.saveAll(Arrays.asList(cli1,cli2));
+		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
