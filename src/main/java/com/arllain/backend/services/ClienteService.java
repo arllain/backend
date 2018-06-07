@@ -17,12 +17,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.arllain.backend.domain.Cidade;
 import com.arllain.backend.domain.Cliente;
 import com.arllain.backend.domain.Endereco;
+import com.arllain.backend.domain.enums.Perfil;
 import com.arllain.backend.domain.enums.TipoCliente;
 import com.arllain.backend.dto.ClienteDTO;
 import com.arllain.backend.dto.ClienteNewDTO;
 import com.arllain.backend.repositories.CidadeRepository;
 import com.arllain.backend.repositories.ClienteRepository;
 import com.arllain.backend.repositories.EnderecoRepository;
+import com.arllain.backend.security.UserSS;
+import com.arllain.backend.services.exception.AuthorizationException;
 import com.arllain.backend.services.exception.DataIntegrityException;
 import com.arllain.backend.services.exception.ObjectNotFoundException;
 
@@ -43,6 +46,12 @@ public class ClienteService {
 	
 	
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())){
+			throw new AuthorizationException("Acesso negado!");
+		}
+			
 		Optional<Cliente> cli = repo.findById(id);
 		return cli.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +
 		id + ", Tipo: " + Cliente.class.getName()));
