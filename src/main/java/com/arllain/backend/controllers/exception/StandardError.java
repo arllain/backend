@@ -3,58 +3,60 @@ package com.arllain.backend.controllers.exception;
 import java.io.Serializable;
 
 public class StandardError implements Serializable{
-	
 	private static final long serialVersionUID = 1L;
-	private Integer status;
-	private String msg;
+
 	private Long timeStamp;
-	/**
-	 * @param status
-	 * @param msg
-	 * @param timeStamp
-	 */
-	public StandardError(Integer status, String msg, Long timeStamp) {
+	private Integer status;
+	private String error;
+	private String message;
+	private String path;
+	
+	public StandardError(Long timeStamp, Integer status, String error, String message, String path) {
 		super();
-		this.status = status;
-		this.msg = msg;
 		this.timeStamp = timeStamp;
-	}
-	/**
-	 * @return the status
-	 */
-	public Integer getStatus() {
-		return status;
-	}
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(Integer status) {
 		this.status = status;
+		this.error = error;
+		this.message = message;
+		this.path = path;
 	}
-	/**
-	 * @return the msg
-	 */
-	public String getMsg() {
-		return msg;
-	}
-	/**
-	 * @param msg the msg to set
-	 */
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
-	/**
-	 * @return the timeStamp
-	 */
+
 	public Long getTimeStamp() {
 		return timeStamp;
 	}
-	/**
-	 * @param timeStamp the timeStamp to set
-	 */
+
 	public void setTimeStamp(Long timeStamp) {
 		this.timeStamp = timeStamp;
 	}
 
-	
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
 }
