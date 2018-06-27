@@ -233,12 +233,12 @@ public class DBService {
 
 		Endereco end1 = new Endereco(null, "Rua da flores", "300", "Apt 303", "Torre", "999874558", cli1, cid1);
 		Endereco end2 = new Endereco(null, "Avenida Domingos Ferreira", "1005", "sala 1303", "Boa viagem", "38220834",
-				cli1, cid1);
+				cli2, cid1);
 		Endereco end3 = new Endereco(null, "Avenida dos Programadores", "2020", "sala 1303", "Boa viagem", "38220834",
-				cli1, cid1);
+				cli2, cid1);
 
-		cli1.getEnderecos().addAll(Arrays.asList(end1, end2));
-		cli2.getEnderecos().addAll(Arrays.asList(end3));
+		cli1.getEnderecos().addAll(Arrays.asList(end1));
+		cli2.getEnderecos().addAll(Arrays.asList(end2,end3));
 
 		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
 		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
