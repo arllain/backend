@@ -12,7 +12,6 @@ import com.arllain.backend.services.DBService;
 import com.arllain.backend.services.EmailService;
 import com.arllain.backend.services.SmtpEmailService;
 
-
 @Configuration
 @Profile("prod")
 public class ProdConfig {
